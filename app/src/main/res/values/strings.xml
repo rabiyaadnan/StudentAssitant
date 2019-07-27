@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Student Assistant</string>
+    <string name="quiz">Quiz</string>
+    <string name="assignment">Assignment</string>
+    <string name="project">Project</string>
+    <string name="additional">Additional</string>
+
+</resources>
