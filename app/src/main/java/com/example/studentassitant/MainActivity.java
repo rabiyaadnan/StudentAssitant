@@ -28,7 +28,9 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment (new fragment_quiz(),"Quiz");
         adapter.addFragment (new fragment_assignment(),"assignment");
         adapter.addFragment (new fragment_project(),"project");
-        adapter.addFragment (new fragment_additional(),"additional");
+        adapter.addFragment (new fragment_additional(),"courses");
+        adapter.addFragment (new fragment_additional(),"notes");
+
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewPager);
         Button btn = findViewById(R.id.saikal);
