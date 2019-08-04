@@ -3,25 +3,48 @@ package com.example.studentassitant;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 import db.additionalNotes;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<viewHolder2>  {
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.viewHolder2> {
+
     List<additionalNotes> addNotes;
     Context ab;
     public int ItemLayout;
     int id;
     String info;
 
+
+    //private static int currentSelectedIndex = -1;
+
+    public class viewHolder2 extends RecyclerView.ViewHolder {
+        TextView Title2, Date2, Time2;
+        Button edit, delete;
+
+        public viewHolder2(@NonNull View itemView) {
+            super(itemView);
+
+            Title2 = itemView.findViewById(R.id.title);
+            Date2  =  itemView.findViewById(R.id.date);
+            Time2  =  itemView.findViewById(R.id.time);
+            edit = itemView.findViewById(R.id.updateRedirectButton);
+            delete = itemView.findViewById(R.id.deleteButton);
+
+        }
+    }
 
     public RecyclerViewAdapter(List<additionalNotes> addNotes, int itemLayout, Context c) {
         this.addNotes = addNotes;
@@ -39,7 +62,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<viewHolder2>  {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final viewHolder2 holder, final int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewAdapter.viewHolder2 holder,final int position) {
         if (holder != null) {
             if (addNotes != null) {
                 holder.Title2.setText(addNotes.get(position).getTitle());
@@ -64,15 +87,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<viewHolder2>  {
                     @Override
                     public void onClick(View view) {
 
-                        id=addNotes.get(position).getId();
-                        info="DeleteAddNotes";
+                        id = addNotes.get(position).getId();
+                        info = "DeleteAddNotes";
                         pop();
-
-//                        Intent intent = new Intent(ab, deletePopup.class);
-//
-//                        intent.putExtra("id", Integer.toString( );
-//                        intent.putExtra("State","DeleteAddNotes");
-//                        ab.startActivity(intent);
 
                     }
                 });
@@ -88,6 +105,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<viewHolder2>  {
             return addNotes.size();
         return 0;
     }
+
+
 
     public void setItems(List<additionalNotes> arrayListc) {
         addNotes = arrayListc;
@@ -106,8 +125,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<viewHolder2>  {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface arg0, int arg1) {
-                        // Toast.makeText(deletePopup.this,"You selected Yes",Toast.LENGTH_LONG).show();
-                        //if(getIntent().getStringExtra("State").equals("DeleteAddNotes"))
                         {
                             AddNotesAsync acs = new AddNotesAsync(ab, new additionalNotes(), "Delete",id);
                             acs.execute();
@@ -124,8 +141,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<viewHolder2>  {
 
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
-
-
-
     }
 }
